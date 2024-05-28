@@ -157,6 +157,20 @@ vim.opt.scrolloff = 10
 -- Explorer options
 vim.g.netrw_liststyle = 3
 
+-- Column marker
+vim.cmd 'set colorcolumn=80'
+
+-- Get a background color from the current colorscheme (e.g., from the 'CursorLine' group)
+local bg_color = vim.api.nvim_get_hl(0, { name = 'CursorLine' })['bg'] or nil
+
+-- Apply the color to ColorColumn if it exists
+if bg_color then
+  vim.api.nvim_set_hl(0, 'ColorColumn', { bg = bg_color })
+else
+  -- Default color if 'CursorLine' doesn't have a background color
+  vim.api.nvim_set_hl(0, 'ColorColumn', { ctermbg = 0, bg = '#2e2e2e' })
+end
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
